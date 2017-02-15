@@ -1,0 +1,41 @@
+link [rel='stylesheet' href='#{mount_point}/assets/wolf_core.css']
+
+form [action='generate-config', method='POST']
+  label [for='url'] Embed URL:
+  input [id='url' name='url' type='text']
+  label [for='account_navigation'] Account Navigation:
+  input [id='account_navigation' name='account_navigation' type='radio']
+  label [for='course_navigation'] Course Navigation:
+  input [id='course_navigation' name='course_navigation' type='radio']
+  label [for='user_navigation'] User Navigation:
+  input [id='user_navigation' name='user_navigation' type='radio']
+
+  input.btn-cu [type='submit' value='Generate']
+
+hr
+
+p This page will help you generate the XML configuration needed to add an embedded page in Canvas. Enter the URL of the page you wish to embed and where you would like it to appear in Canvas. Note that the specified will not show up in Canvas unless it has X-Frame-Options headers configured to allow embedding.
+
+hr
+
+p
+  | After clicking "Generate", you will be redirected to a page with configuration data. Follow these instructions to add your generated config to a course or account.
+  ol
+    li Navigate to the course or account where you wish to add embedded page. Click "Settings" on the left-hand sidebar navigation, go to the "Apps" tab, and click the "+ App" button.
+
+    img.example [src='#{mount_point}/add_app_example.png']
+
+    li
+      | In the App configuration popup, populate the following fields:
+      ul
+        li Configuration Type: "By URL"
+        li Name: An identifier of your choosing.
+        li Config URL: The URL of your generated configuration.
+        li
+          | Consumer Key & Shared Secret: These can be obtained on the 
+          a [href="#{settings.canvas_url}/accounts/#{settings.canvas_account_id}/developer_keys", target="_blank"] Developer Keys 
+          | page. Look for a key with a "URI" matching the domain of <u>this</u> page, and use the "ID" and "Key" as the app's "Consumer Key" and "Shared Secret", repectively.
+
+        img#dev-keys-example [src='#{mount_point}/dev_keys_example.png']
+
+        li Click "Submit" and refresh the page. The item should appear in the specified navigation area with the name you configured.
